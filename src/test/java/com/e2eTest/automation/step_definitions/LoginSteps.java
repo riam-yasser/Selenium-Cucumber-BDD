@@ -1,10 +1,9 @@
 package com.e2eTest.automation.step_definitions;
 
-import org.junit.jupiter.api.Assertions;
-
 import com.e2eTest.automation.page_objects.LoginPage;
 import com.e2eTest.automation.utils.ConfigFileReader;
-import com.e2eTest.automation.utils.Setup;
+import com.e2eTest.automation.utils.Validations;
+import com.e2eTest.automation.utils.ActionsUtils;
 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -14,37 +13,37 @@ public class LoginSteps {
 
 	LoginPage loginPage = new LoginPage();
 	ConfigFileReader configFileReader = new ConfigFileReader();
+	ActionsUtils actionsUtils = new ActionsUtils();
+	Validations validations = new Validations();
 
 	@Given("Je me connecte sur le site Web Demo Shop")
 	public void jeMeConnecteSurLeSiteWebDemoShop() {
-		Setup.getDriver().get(configFileReader.getProperty("home.url"));
+		actionsUtils.get(configFileReader.getProperty("home.url"));
 	}
 
 	@When("Je clique sur le bouton Log in")
 	public void jeCliqueSurLeBoutonLogIn() {
-		LoginPage.getLoginBarMenu().click();
+		actionsUtils.click(LoginPage.getLoginBarMenu());
 	}
 
 	@When("Je saisis une adresse mail")
 	public void jeSaisisUneAdresseMail() {
-		LoginPage.getEmailField().sendKeys(configFileReader.getProperty("home.email"));
+		actionsUtils.writeText(LoginPage.getEmailField(), configFileReader.getProperty("home.email"));
 	}
 
 	@When("Je saisis un mot de passe")
 	public void jeSaisisUnMotDePasse() {
-		LoginPage.getPasswordField().sendKeys(configFileReader.getProperty("home.password"));
-
+		actionsUtils.writeText(LoginPage.getPasswordField(), configFileReader.getProperty("home.password"));
 	}
 
 	@When("Je clique sur le bouton Login")
 	public void jeCliqueSurLeBoutonLogin() {
-		LoginPage.getLoginButton().click();
+		actionsUtils.click(LoginPage.getLoginButton());
 	}
 
 	@Then("Je me redirige vers la page home {string}")
 	public void jeMeRedirigeVersLaPageHome(String email) {
-		String homePage = LoginPage.getHomePage().getText();
-		Assertions.assertEquals(homePage, email);
+		validations.assertEquals(LoginPage.getHomePage(), email);
 	}
 
 }
