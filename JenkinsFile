@@ -29,30 +29,34 @@ pipeline {
 
     stage('Test') {
       steps {
-        bat """
-          mvn -B test ^
-            -Dcucumber.filter.tags="${params.CUCUMBER_TAGS}" ^
-            -Dbrowser="${params.BROWSER}" ^
-            -Dheadless="${params.HEADLESS}"
-        """
-      }
-     post {
-       always {
-           junit allowEmptyResults: true, testResults: 'target/surefire-reports/*.xml'
-           archiveArtifacts allowEmptyArchive: true, artifacts: 'target/**'
+         bat """
+      mvn -B test ^
+        -Dcucumber.filter.tags="${params.CUCUMBER_TAGS}" ^
+        -Dbrowser="${params.BROWSER}" ^
+        -Dheadless="${params.HEADLESS}"
+    """
+  }
+ post {
+  always {
+    junit allowEmptyResults: true, testResults: 'target/surefire-reports/*.xml'
+    archiveArtifacts allowEmptyArchive: true, artifacts: 'target/**'
 
-     publishHTML(target: [
-         allowMissing: false,
-         alwaysLinkToLastBuild: true,
-         keepAll: true,
-         reportDir: 'target/reports',
-         reportFiles: 'cucumber-report.html',
-         reportName: 'Cucumber Report'
+    publishHTML(target: [
+      allowMissing: true,
+      alwaysLinkToLastBuild: true,
+      keepAll: true,
+      reportDir: 'target/report',
+      reportFiles: 'cucumber-report.html',
+      reportName: 'Cucumber HTML Report'
     ])
+
+    cucumber buildStatus: 'UNSTABLE',
+             fileIncludePattern: '**/target/**/cucumber*.json'
   }
 }
 
-    }
+}
+
   }
 
   post {
