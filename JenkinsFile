@@ -36,24 +36,26 @@ pipeline {
         -Dheadless="${params.HEADLESS}"
     """
   }
- post {
-  always {
-    junit allowEmptyResults: true, testResults: 'target/surefire-reports/*.xml'
-    archiveArtifacts allowEmptyArchive: true, artifacts: 'target/**'
 
-    publishHTML(target: [
-      allowMissing: true,
-      alwaysLinkToLastBuild: true,
-      keepAll: true,
-      reportDir: 'target/report',
-      reportFiles: 'cucumber-report.html',
-      reportName: 'Cucumber HTML Report'
+    post {
+      always {
+       junit allowEmptyResults: true, testResults: 'target/surefire-reports/*.xml'
+       archiveArtifacts allowEmptyArchive: true, artifacts: 'target/**'
+
+      publishHTML(target: [
+        allowMissing: true,
+        alwaysLinkToLastBuild: true,
+        keepAll: true,
+        reportDir: 'target/report',
+        reportFiles: 'cucumber-report.html',
+        reportName: 'Cucumber HTML Report'
     ])
 
-    cucumber buildStatus: 'UNSTABLE',
-             fileIncludePattern: '**/target/**/cucumber*.json'
+      cucumber buildStatus: 'UNSTABLE',
+             fileIncludePattern: 'target/report/cucumber.json'
   }
 }
+
 
 }
 
