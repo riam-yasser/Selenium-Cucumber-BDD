@@ -1,0 +1,80 @@
+pipeline {
+  agent any
+
+  options {
+    timestamps()
+    ansiColor('xterm')
+    buildDiscarder(logRotator(numToKeepStr: '20'))
+    timeout(time: 45, unit: 'MINUTES')
+  }
+
+  parameters {
+    string(name: 'CUCUMBER_TAGS', defaultValue: '@smoke', description: 'Cucumber tags to run, e.g. @smoke or @books_checkoutPage and not @wip')
+    choice(name: 'BROWSER', choices: ['chrome', 'firefox'], description: 'Browser for UI tests')
+    booleanParam(name: 'HEADLESS', defaultValue: true, description: 'Run browser headless')
+  }
+
+  environment {
+    // If you configured a Maven tool in Jenkins: Manage Jenkins -> Tools -> Maven
+    // Otherwise remove MAVEN_TOOL and just use "mvn" directly.
+    MAVEN_TOOL = 'apache-maven-3.9.12'
+    // If you configured a JDK tool in Jenkins: Manage Jenkins -> Tools -> JDK
+    JDK_TOOL = 'JDK21'
+    // Common Maven options
+    MAVEN_OPTS = '-Xmx1024m -Dfile.encoding=UTF-8'
+  }
+
+  tools {
+    maven "${env.MAVEN_TOOL}"
+    jdk "${env.JDK_TOOL}"
+  }
+
+  stages {
+    stage('Checkout') {
+      steps {
+        checkout scm
+      }
+    }
+
+    stage('Build (skip tests)') {
+      steps {
+        sh 'mvn -B -DskipTests clean compile'
+      }
+    }
+
+    stage('Test') {
+      steps {
+        // Pass parameters to your framework as system properties.
+        // Adapt these to whatever your project reads (ConfigFileReader, etc.)
+        sh """
+          mvn -B test \
+            -Dcucumber.filter.tags="${params.CUCUMBER_TAGS}" \
+            -Dbrowser="${params.BROWSER}" \
+            -Dheadless="${params.HEADLESS}"
+        """
+      }
+      post {
+        always {
+          // JUnit XML reports (Surefire)
+          junit allowEmptyResults: true, testResults: 'target/surefire-reports/*.xml'
+
+          // Archive useful artifacts (screenshots, cucumber reports, logs)
+          archiveArtifacts allowEmptyArchive: true, artifacts: '''
+            target/**/*.png,
+            target/**/*.jpg,
+            target/**/*.log,
+            target/cucumber-reports/**,
+            target/site/**,
+            target/surefire-reports/**
+          '''
+        }
+      }
+    }
+  }
+
+  post {
+    always {
+      cleanWs(deleteDirs: true, disableDeferredWipeout: true)
+    }
+  }
+}

@@ -15,7 +15,7 @@ import static io.cucumber.junit.CucumberOptions.SnippetType.CAMELCASE;
  * </p>
  *
  * <p>
- * It defines:
+ * It defines: 
  * <ul>
  * <li>The location of feature files</li>
  * <li>The reporting formats (HTML, JSON)</li>
@@ -48,10 +48,10 @@ import static io.cucumber.junit.CucumberOptions.SnippetType.CAMELCASE;
 		 */
 		// glue = {"src/test/java/com/e2eTest/automation/step_definitions"},
 
-		/**
+		/** 
 		 * Executes only scenarios or features with the specified tag.
 		 */
-		tags = ("@logout"),
+		tags = ("@facebook"),
 
 		/**
 		 * Removes unnecessary characters from the console output, making it more

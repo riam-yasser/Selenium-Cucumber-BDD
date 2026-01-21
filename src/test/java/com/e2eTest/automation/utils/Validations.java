@@ -23,6 +23,8 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.Color;
+
 
 /**
  * This class is used to perform various kinds of validations in the test cases.
@@ -221,5 +223,21 @@ public class Validations extends BasePage {
    	String URL = driver.getCurrentUrl();
    	Assertions.assertEquals(URL, expectedURL);
    }
+   
+    /**
+	 * method Checks if the color selected has the same Hex Code
+	 *
+	 * @param element
+	 * @param value
+	 */
+   public void assertElementColor(WebElement element, String expectedHex) {
+       String cssColor = element.getCssValue("background-color");
+       String actualHex = Color.fromString(cssColor).asHex();
+       Assertions.assertEquals(expectedHex, actualHex);
+   }
+
+	public void assertTrue(boolean errorMessageDisplayed, String errorMessageExpected) {
+        Assertions.assertTrue(errorMessageDisplayed, errorMessageExpected);		
+	}
 
 }

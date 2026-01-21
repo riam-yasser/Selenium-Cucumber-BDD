@@ -608,5 +608,15 @@ public class ActionsUtils extends BasePage {
 		    }
 		}
 		
+		/**
+		 * method to scroll into the element in the page and click on it
+		 *
+		 */
+		public void scrollToElementAndClick(WebElement element) {
 		
+			JavascriptExecutor js = (JavascriptExecutor) driver;
+		    js.executeScript("arguments[0].scrollIntoView({behavior:'smooth', block:'center'});",element);
+		    element.click();
+		
+		}
 	}

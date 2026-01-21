@@ -12,23 +12,30 @@ public class NoteBooksPage extends BasePage {
 	/*
 	 * Retrieve Web element 
 	 */
-	@FindBy(how = How.XPATH, using = "//ul[@class='top-menu']//a[normalize-space()='Notebooks']")
-	private static WebElement noteBooksBarMenuButton;
+	@FindBy(how = How.XPATH, using = "//ul[@class='top-menu']//a[normalize-space()='Computers']")
+	private static WebElement computersBarMenuButton;
 	
-	@FindBy(how = How.CSS, using = "div[class='page-title'] h1")
+	@FindBy(how = How.XPATH, using = "//h1[normalize-space()='Notebooks']")
 	private static WebElement noteBooksPage;
+	
+	@FindBy(how = How.XPATH, using = "//ul[@class='top-menu']//a[normalize-space()='Notebooks']")
+	private static WebElement noteBooksButton;
 	
 	public NoteBooksPage() {
 		super(Setup.getDriver());
 		// TODO Auto-generated constructor stub
 	}
 
-	public static WebElement getNoteBooksBarMenuButton() {
-		return noteBooksBarMenuButton;
+	public static WebElement getComputersBarMenuButton() {
+		return computersBarMenuButton;
 	}
 
 	public static WebElement getNoteBooksPage() {
 		return noteBooksPage;
+	}
+	
+	public static WebElement getNoteBooksButton() {
+		return noteBooksButton;
 	}
 	
 

@@ -45,6 +45,45 @@ public class BooksPage extends BasePage {
 	@FindBy(how = How.CSS, using = "div[class='page-title'] h1 ")
 	private static WebElement loginPageRedirection;
 	
+	@FindBy(how = How.CSS, using = "div[class='page-title'] h1 ")
+	private static WebElement checkoutPageRedirection;
+	
+	@FindBy(how = How.CSS, using = "#billing-address-select")
+	private static WebElement billingAddress;
+	
+	@FindBy(how = How.CSS, using = "input[onclick='Billing.save()']")
+	private static WebElement continueBilling;
+	
+	@FindBy(how = How.CSS, using = "#shipping-address-select")
+	private static WebElement shippingAddress;
+	
+	@FindBy(how = How.CSS, using = "input[onclick='Shipping.save()']")
+	private static WebElement continueShipping;
+	
+	@FindBy(how = How.CSS, using = "#shippingoption_1")
+	private static WebElement shippingOptionsMethod;
+	
+	@FindBy(how = How.CSS, using = "input[class='button-1 shipping-method-next-step-button']")
+	private static WebElement continueShippingMethods;
+	
+	@FindBy(how = How.CSS, using = "#paymentmethod_1")
+	private static WebElement paymentOptionsMethod;
+	
+	@FindBy(how = How.CSS, using = "input[class='button-1 payment-method-next-step-button']")
+	private static WebElement continuePayementMethods;
+	
+	@FindBy(how = How.CSS, using = "tbody tr td p")
+	private static WebElement paymentInformationsMessage;
+	
+	@FindBy(how = How.CSS, using = "input[class='button-1 payment-info-next-step-button']")
+	private static WebElement continuePayementInformations;
+	
+	@FindBy(how = How.CSS, using = "#checkout-step-confirm-order")
+	private static WebElement confirmOrderList;
+	
+//	@FindBy(how = How.CSS, using = "input[value='Confirm']")
+//	private static WebElement confirmButton;
+	
 	public BooksPage() {
 		super(Setup.getDriver());
 	}
@@ -90,6 +129,54 @@ public class BooksPage extends BasePage {
 			
 	public static WebElement getLoginPageRedirection() {
 		return loginPageRedirection;
+	}
+
+	public static WebElement getCheckoutPageRedirection() {
+		return checkoutPageRedirection;
+	}
+	
+	public static WebElement getBillingAddress() {
+		return billingAddress;
+	}
+	
+	public static WebElement getContinueBilling() {
+		return continueBilling;
+	}
+	
+	public static WebElement getShippingAddress() {
+		return shippingAddress;
+	}
+	
+	public static WebElement getContinueShipping() {
+		return continueShipping;
+	}
+	
+	public static WebElement getShippingOptionsMethod() {
+		return shippingOptionsMethod;
+	}
+	
+	public static WebElement getContinueShippingMethods() {
+		return continueShippingMethods;
+	}
+	
+	public static WebElement getPaymentOptionsMethod() {
+		return paymentOptionsMethod;
+	}
+	
+	public static WebElement getContinuePayementMethods() {
+		return continuePayementMethods;
+	}
+	
+	public static WebElement getPaymentInformationsMessage() {
+		return paymentInformationsMessage;
+	}
+	
+	public static WebElement getContinuePayementInformations() {
+		return continuePayementInformations;
+	}
+	
+	public static WebElement getConfirmOrderList() {
+		return confirmOrderList;
 	}
 	
 }
