@@ -8,7 +8,7 @@ pipeline {
   }
 
   parameters {
-    string(name: 'CUCUMBER_TAGS', defaultValue: '@smoke', description: 'Cucumber tags to run')
+    string(name: 'CUCUMBER_TAGS', defaultValue: '', description: 'Cucumber tags to run')
     choice(name: 'BROWSER', choices: ['chrome', 'firefox'], description: 'Browser for UI tests')
     booleanParam(name: 'HEADLESS', defaultValue: true, description: 'Run browser headless')
   }

@@ -1,6 +1,7 @@
 package com.e2eTest.automation.step_definitions;
 
 import com.e2eTest.automation.page_objects.ApparelAndShoesPage;
+import com.e2eTest.automation.page_objects.BooksPage;
 import com.e2eTest.automation.utils.ActionsUtils;
 import com.e2eTest.automation.utils.SelectFromListUtils;
 import com.e2eTest.automation.utils.Validations;
@@ -75,6 +76,13 @@ public class ApparelAndShoesSteps {
 		Thread.sleep(50);
 	}
 
+
+	@When("Je clique sur sort by je vois une liste deroulante qui est par defaut position je choisis Name Z to A")
+	public void jeCliqueSurSortByJeVoisUneListeDeroulanteQuiEstParDefautPositionJeChoisisNameZToA() {
+ // selectFromListUtils.selectDropDownListByIndex(ApparelAndShoesPage.getDropDownSortBy(), 2); 
+		
+		selectFromListUtils.selectDropDownListByVisibleText(ApparelAndShoesPage.getDropDownSortBy(), "Name: A to Z");
+	}
 
 
 

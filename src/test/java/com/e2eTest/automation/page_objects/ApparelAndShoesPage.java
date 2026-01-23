@@ -45,6 +45,9 @@ public class ApparelAndShoesPage extends BasePage{
 	@FindBy(how = How.CSS, using = "div:nth-child(7) div:nth-child(1) div:nth-child(2) h2:nth-child(1) a:nth-child(1)") 
 	private static WebElement elementScrolled;
 	
+	@FindBy(how = How.CSS, using = "#products-orderby") 
+	private static WebElement dropDownSortBy;
+	
 	public ApparelAndShoesPage() {
 		super(Setup.getDriver());
 	} 
@@ -91,5 +94,9 @@ public class ApparelAndShoesPage extends BasePage{
 	
 	public static WebElement getElementScrolled() {
 		return elementScrolled;
+	}
+	
+	public static WebElement getDropDownSortBy() {
+		return dropDownSortBy;
 	}
 }
